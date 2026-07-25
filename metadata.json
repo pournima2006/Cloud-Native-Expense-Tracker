@@ -1,6 +1,0 @@
-{
-  "name": "Expense Tracker & OCR Receipt Scanner",
-  "description": "Modular Expense Tracker with OCR Receipt Scanner, analytics dashboard, categorized expense tracking, and automated email reports.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
