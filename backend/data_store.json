@@ -1,0 +1,145 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "demouser",
+      "email": "demo@expensetracker.com",
+      "password_hash": "$2b$10$7A..i1t1YHwzP9u8dTDN6uV4ZToqvd1pHogTsm.tWSXGs.UqGG65u",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 2,
+      "username": "snehal",
+      "email": "snehalbchavan96@gmail.com",
+      "password_hash": "$2b$10$fmBFSRxQcP6K1G09nuY9FeRYlkDjnT5NT6Gl5txhtiBgoOsJDZyPu",
+      "created_at": "2026-07-25T17:17:48.105Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "user_id": null,
+      "name": "Food & Dining",
+      "icon": "Utensils",
+      "color": "#EF4444",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 2,
+      "user_id": null,
+      "name": "Transportation",
+      "icon": "Car",
+      "color": "#3B82F6",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 3,
+      "user_id": null,
+      "name": "Utilities & Bills",
+      "icon": "Zap",
+      "color": "#F59E0B",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 4,
+      "user_id": null,
+      "name": "Shopping",
+      "icon": "ShoppingBag",
+      "color": "#10B981",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 5,
+      "user_id": null,
+      "name": "Entertainment",
+      "icon": "Film",
+      "color": "#8B5CF6",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 6,
+      "user_id": null,
+      "name": "Health & Medical",
+      "icon": "HeartPulse",
+      "color": "#EC4899",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 7,
+      "user_id": null,
+      "name": "Travel",
+      "icon": "Plane",
+      "color": "#14B8A6",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 8,
+      "user_id": null,
+      "name": "General / Other",
+      "icon": "Tag",
+      "color": "#6B7280",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "category_id": 1,
+      "merchant_name": "Blue Bottle Coffee",
+      "amount": 14.5,
+      "expense_date": "2026-07-24",
+      "notes": "Team morning espresso",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "category_id": 2,
+      "merchant_name": "Uber Travel",
+      "amount": 34.2,
+      "expense_date": "2026-07-23",
+      "notes": "Airport ride",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "category_id": 3,
+      "merchant_name": "Google Cloud Platform",
+      "amount": 148,
+      "expense_date": "2026-07-20",
+      "notes": "Server infrastructure",
+      "created_at": "2026-07-25T17:17:47.912Z"
+    },
+    {
+      "id": 4,
+      "user_id": 2,
+      "category_id": 1,
+      "merchant_name": "Starbucks",
+      "amount": 400,
+      "expense_date": "2026-07-21",
+      "notes": "Had a long day",
+      "receipt_url": "",
+      "image_url": "",
+      "raw_ocr_text": "",
+      "created_at": "2026-07-25T17:20:09.573Z"
+    },
+    {
+      "id": 5,
+      "user_id": 2,
+      "category_id": 4,
+      "merchant_name": "Page No 1 of 1 Invoice Original Copy",
+      "amount": 15,
+      "expense_date": "2026-07-25",
+      "notes": "",
+      "receipt_url": "https://expense-tracker-receipts-135.s3.ap-south-1.amazonaws.com/receipts/1785001225055-7f1e23a73dfc.png",
+      "image_url": "https://expense-tracker-receipts-135.s3.ap-south-1.amazonaws.com/receipts/1785001225055-7f1e23a73dfc.png",
+      "raw_ocr_text": "Page No. 1 of 1 Invoice Original Copy |\nCompany Name (Shop Name)\nAddress: New Deli Del, 110050, nda.\nraatogn\nMobile: +91 XX0000000AX mall XXROGOUGRX\nGSTIN 0000000 | PAN - ROOK\nnoice wane\nomar Soran\neles Date ro\nDun dite oan\nPlace of Supply -\nec\nailing Details\nCustomer Name:\nAdress: New Da, Del, 110056, inci.\nMote: +33 onassises | Em dd em 4\nBET Cr EC Ce EA ET\namor rr 20000 | 124 | 000 | 20000\nrem oz sa | io ow | 421 | ooo | om\ntemo3 wer | 100 ooo | 9% | ooo | om\nem os og oo | | ooo | gap\nI YT\nTerms and conditions\nbh i ay For - Company Name (shop\n2 DE nes\nHY cli\nH Sed\n5 Sa\nUPI 1d: Add UPI 1a\nsignature\n",
+      "created_at": "2026-07-25T17:40:30.608Z"
+    }
+  ],
+  "nextUserId": 3,
+  "nextCategoryId": 9,
+  "nextExpenseId": 6
+}
