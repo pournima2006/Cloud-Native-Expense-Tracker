@@ -88,6 +88,12 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
     e.preventDefault();
     if (!merchantName || !amount || !expenseDate) return;
 
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (expenseDate > todayStr) {
+      alert('Transaction date cannot be in the future.');
+      return;
+    }
+
     setIsSaving(true);
     try {
       if (editingExpense) {
@@ -162,9 +168,9 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
               onChange={(e) => setSelectedCategory(e.target.value ? Number(e.target.value) : '')}
               className="w-full px-3 py-2.5 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
             >
-              <option value="" className="dark:bg-[#1C1F24] dark:text-[#F8F6F2]">All Categories</option>
+              <option value="" className="bg-white dark:bg-[#1C1F24] text-[#2D2D2D] dark:text-[#F8F6F2] py-1">All Categories</option>
               {categories.map((c) => (
-                <option key={c.id} value={c.id} className="dark:bg-[#1C1F24] dark:text-[#F8F6F2]">
+                <option key={c.id} value={c.id} className="bg-white dark:bg-[#1C1F24] text-[#2D2D2D] dark:text-[#F8F6F2] py-1">
                   {c.name}
                 </option>
               ))}
@@ -197,7 +203,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
         <div className="flex items-center justify-between pt-3 border-t border-[#DDD8D0] dark:border-[#2D323A] text-xs">
           <div className="text-[#666666] dark:text-[#A0AEC0] font-semibold">
             <span>Filtered Total: </span>
-            <span className="text-[#5D8D8E] dark:text-[#79B4B5] font-extrabold text-sm">${totalFilteredSpend.toFixed(2)}</span>
+            <span className="text-[#5D8D8E] dark:text-[#79B4B5] font-extrabold text-sm">₹{totalFilteredSpend.toFixed(2)}</span>
             <span className="text-[#666666] dark:text-[#A0AEC0] font-normal ml-2">({expenses.length} records)</span>
           </div>
 
@@ -302,7 +308,7 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
                       )}
                     </td>
                     <td className="p-3 text-[#666666] dark:text-[#A0AEC0] max-w-xs truncate">{e.notes || '-'}</td>
-                    <td className="p-3 text-right font-bold text-[#2D2D2D] dark:text-[#F8F6F2]">${Number(e.amount).toFixed(2)}</td>
+                    <td className="p-3 text-right font-bold text-[#2D2D2D] dark:text-[#F8F6F2]">₹{Number(e.amount).toFixed(2)}</td>
                     <td className="p-3 text-center">
                       <div className="flex items-center justify-center gap-1">
                         <button
@@ -331,15 +337,15 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
 
       {/* Create / Edit Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
-            <div className="flex justify-between items-center mb-4 pb-2 border-b">
-              <h3 className="font-bold text-gray-900 text-base">
+        <div className="fixed inset-0 bg-[#2D2D2D]/60 dark:bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#F8F6F2] dark:bg-[#1C1F24] rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-[#DDD8D0] dark:border-[#2D323A] my-auto max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4 pb-2 border-b border-[#DDD8D0] dark:border-[#2D323A]">
+              <h3 className="font-bold text-[#2D2D2D] dark:text-[#F8F6F2] text-base">
                 {editingExpense ? 'Edit Expense Record' : 'Add New Expense'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-400 hover:text-gray-600 font-bold p-1 cursor-pointer"
+                className="text-[#666666] dark:text-[#A0AEC0] hover:text-[#2D2D2D] dark:hover:text-[#F8F6F2] font-bold p-1 rounded-lg hover:bg-[#CDC8C0]/40 dark:hover:bg-[#2D323A] cursor-pointer transition-colors"
               >
                 ✕
               </button>
@@ -347,19 +353,19 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
 
             <form onSubmit={handleSaveExpense} className="space-y-4 text-xs">
               <div>
-                <label className="block font-semibold text-gray-700 mb-1">Merchant / Store Name *</label>
+                <label className="block font-semibold text-[#2D2D2D] dark:text-[#F8F6F2] mb-1">Merchant / Store Name *</label>
                 <input
                   type="text"
                   value={merchantName}
                   onChange={(e) => setMerchantName(e.target.value)}
                   placeholder="e.g. Starbucks"
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-gray-700 mb-1">Amount ($) *</label>
+                <label className="block font-semibold text-[#2D2D2D] dark:text-[#F8F6F2] mb-1">Amount (₹) *</label>
                 <input
                   type="number"
                   step="0.01"
@@ -367,19 +373,19 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder="0.00"
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-semibold focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs font-bold focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-gray-700 mb-1">Category *</label>
+                <label className="block font-semibold text-[#2D2D2D] dark:text-[#F8F6F2] mb-1">Category *</label>
                 <select
                   value={categoryId}
                   onChange={(e) => setCategoryId(Number(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
                 >
                   {categories.map((c) => (
-                    <option key={c.id} value={c.id}>
+                    <option key={c.id} value={c.id} className="bg-white dark:bg-[#1C1F24] text-[#2D2D2D] dark:text-[#F8F6F2] py-1">
                       {c.name}
                     </option>
                   ))}
@@ -387,39 +393,40 @@ export const Expenses: React.FC<ExpensesProps> = ({ categories, onOpenUpload, re
               </div>
 
               <div>
-                <label className="block font-semibold text-gray-700 mb-1">Transaction Date *</label>
+                <label className="block font-semibold text-[#2D2D2D] dark:text-[#F8F6F2] mb-1">Transaction Date *</label>
                 <input
                   type="date"
                   value={expenseDate}
+                  max={new Date().toISOString().split('T')[0]}
                   onChange={(e) => setExpenseDate(e.target.value)}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-gray-700 mb-1">Notes</label>
+                <label className="block font-semibold text-[#2D2D2D] dark:text-[#F8F6F2] mb-1">Notes</label>
                 <input
                   type="text"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Optional notes"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-hidden focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
                 />
               </div>
 
-              <div className="pt-4 border-t flex justify-end gap-2">
+              <div className="pt-4 border-t border-[#DDD8D0] dark:border-[#2D323A] flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
+                  className="px-4 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl font-semibold text-[#666666] dark:text-[#A0AEC0] hover:bg-[#CDC8C0]/40 dark:hover:bg-[#2D323A] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold cursor-pointer"
+                  className="px-4 py-2 bg-[#5D8D8E] hover:bg-[#4A7374] text-[#F8F6F2] rounded-xl font-bold cursor-pointer transition-colors shadow-xs"
                 >
                   {isSaving ? 'Saving...' : 'Save Record'}
                 </button>

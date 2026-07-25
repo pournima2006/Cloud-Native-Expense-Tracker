@@ -57,7 +57,7 @@ export const ExpenseCard: React.FC<ExpenseCardProps> = ({ expense, onEdit, onDel
             </div>
           </div>
           <div className="text-right shrink-0">
-            <span className="text-base font-black text-[#2D2D2D] dark:text-[#F8F6F2] block">${Number(expense.amount).toFixed(2)}</span>
+            <span className="text-base font-black text-[#2D2D2D] dark:text-[#F8F6F2] block">₹{Number(expense.amount).toFixed(2)}</span>
             <span className="text-[10px] text-[#666666] dark:text-[#A0AEC0] font-medium">{expense.expense_date}</span>
           </div>
         </div>

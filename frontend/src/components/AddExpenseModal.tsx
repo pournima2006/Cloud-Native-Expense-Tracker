@@ -98,6 +98,12 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
       return;
     }
 
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (expenseDate > todayStr) {
+      setError('Transaction date cannot be in the future.');
+      return;
+    }
+
     setIsSubmitting(true);
     setError(null);
 
@@ -138,9 +144,11 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
     onClose();
   };
 
+  const todayDateStr = new Date().toISOString().split('T')[0];
+
   return (
     <div className="fixed inset-0 bg-[#2D2D2D]/60 dark:bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#F8F6F2] dark:bg-[#1C1F24] rounded-3xl max-w-xl w-full p-6 my-8 shadow-2xl relative border border-[#DDD8D0] dark:border-[#2D323A]">
+      <div className="bg-[#F8F6F2] dark:bg-[#1C1F24] rounded-3xl max-w-xl w-full p-4 sm:p-6 my-auto max-h-[90vh] overflow-y-auto shadow-2xl relative border border-[#DDD8D0] dark:border-[#2D323A]">
         
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[#DDD8D0] dark:border-[#2D323A]">
@@ -252,7 +260,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                         <span className="font-bold text-[#2D2D2D]">Store:</span> {ocrResult.merchantName}
                       </p>
                       <p className="text-[#666666] text-[11px]">
-                        <span className="font-bold text-[#2D2D2D]">Total:</span> ${ocrResult.amount.toFixed(2)}
+                        <span className="font-bold text-[#2D2D2D]">Total:</span> ₹{ocrResult.amount.toFixed(2)}
                       </p>
                       <button
                         type="button"
@@ -297,7 +305,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[#2D2D2D] dark:text-[#F8F6F2] mb-1">Total Amount ($) *</label>
+              <label className="block text-xs font-semibold text-[#2D2D2D] dark:text-[#F8F6F2] mb-1">Total Amount (₹) *</label>
               <div className="relative">
                 <input
                   type="number"
@@ -308,7 +316,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   required
                   className="w-full pl-8 pr-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs font-bold focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
                 />
-                <DollarSign className="w-3.5 h-3.5 text-[#666666] dark:text-[#A0AEC0] absolute left-2.5 top-2.5" />
+                <span className="w-3.5 h-3.5 text-[#666666] dark:text-[#A0AEC0] absolute left-2.5 top-2 text-xs font-bold pointer-events-none">₹</span>
               </div>
             </div>
           </div>
@@ -323,7 +331,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                   className="w-full pl-8 pr-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
                 >
                   {categories.map((c) => (
-                    <option key={c.id} value={c.id} className="dark:bg-[#1C1F24] dark:text-[#F8F6F2]">
+                    <option key={c.id} value={c.id} className="bg-white dark:bg-[#1C1F24] text-[#2D2D2D] dark:text-[#F8F6F2] py-1">
                       {c.name}
                     </option>
                   ))}
@@ -338,6 +346,7 @@ export const AddExpenseModal: React.FC<AddExpenseModalProps> = ({
                 <input
                   type="date"
                   value={expenseDate}
+                  max={todayDateStr}
                   onChange={(e) => setExpenseDate(e.target.value)}
                   required
                   className="w-full pl-8 pr-3 py-2 border border-[#DDD8D0] dark:border-[#2D323A] rounded-xl text-xs focus:outline-hidden focus:ring-2 focus:ring-[#5D8D8E] bg-[#F8F6F2] dark:bg-[#121417] text-[#2D2D2D] dark:text-[#F8F6F2]"
