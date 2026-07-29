@@ -2,14 +2,14 @@
 
 set -e
 
-cd /var/www/expense-tracker
+export HOME=/root
 
-echo "Installing dependencies..."
-npm install
+echo "Stopping existing application..."
 
-echo "Building application..."
-npm run build
+if command -v pm2 &> /dev/null; then
+    pm2 delete expense-tracker || true
+fi
 
-echo "Build completed successfully."
+mkdir -p /var/www/expense-tracker
 
-chmod -R 755 /var/www/expense-tracker
+echo "BeforeInstall completed."
