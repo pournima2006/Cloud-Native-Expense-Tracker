@@ -1,17 +1,29 @@
 #!/bin/bash
-# Start or restart backend server using PM2
+
+set -e
+
 export HOME=/root
+
 cd /var/www/expense-tracker
+
+echo "Starting Expense Tracker backend..."
 
 if ! command -v pm2 &> /dev/null; then
     npm install -g pm2
 fi
 
-pm2 describe expense-tracker > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-    pm2 restart expense-tracker
-else
-    pm2 start dist/server.cjs --name "expense-tracker"
-fi
+pm2 delete expense-tracker || true
+
+pm2 start dist/server.cjs --name expense-tracker
 
 pm2 save
+
+echo "Application started."
+
+sleep 5
+
+echo "Checking backend..."
+
+curl -f http://localhost:5000/health
+
+echo "Backend health check passed."
