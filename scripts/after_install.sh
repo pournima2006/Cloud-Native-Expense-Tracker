@@ -1,5 +1,15 @@
 #!/bin/bash
-# Install production dependencies and set permissions
+
+set -e
+
 cd /var/www/expense-tracker
-npm install --omit=dev
+
+echo "Installing dependencies..."
+npm install
+
+echo "Building application..."
+npm run build
+
+echo "Build completed successfully."
+
 chmod -R 755 /var/www/expense-tracker
