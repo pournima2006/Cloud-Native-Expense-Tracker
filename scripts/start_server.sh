@@ -20,10 +20,12 @@ pm2 save
 
 echo "Application started."
 
-sleep 5
+# Increased sleep to 10 seconds to allow Node.js to fully boot and connect to RDS
+sleep 10
 
 echo "Checking backend..."
 
-curl -f http://localhost:5000/health
+# Changed port from 5000 to 3000
+curl -f http://localhost:3000/health
 
 echo "Backend health check passed."
